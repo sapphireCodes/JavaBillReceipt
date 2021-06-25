@@ -3,11 +3,11 @@ enum category{
     BOOK_MEDICAL_FOOD, OTHERS
 }
 public class Item {
-    String name;
-    double price;
-    boolean isImported;
-    boolean isSalesTaxable;
-    category cat;
+    private String name;
+    private double price;
+    private boolean isImported;
+    private boolean isSalesTaxable;
+    private category cat;
     public Item(String name, double d,boolean imported, category c){
         this.price=d;
         this.name=name;
@@ -16,7 +16,6 @@ public class Item {
         this.isSalesTaxable=this.SaleTaxable();
     }
     public boolean SaleTaxable(){
-        System.out.println(this.cat);
         switch(this.cat){
             case BOOK_MEDICAL_FOOD:
                 return false;
@@ -26,7 +25,15 @@ public class Item {
                 return true;
         }
     }
-
+    public String getName(){
+        return name;
+    }
+    public double getPrice(){
+        return price;
+    }
+    public void setPrice(double price){
+        this.price=price;
+    }
     public double getSalesTax(){
         double totalSaleTax=0;
         totalSaleTax=this.isSalesTaxable?this.price*0.1:0;
