@@ -1,6 +1,6 @@
 
 enum category{
-    BOOK_MEDICAL_FOOD, OTHERS
+    BOOK,CHOCOLATE,PILLS,OTHERS
 }
 public class Item {
     private String name;
@@ -8,16 +8,32 @@ public class Item {
     private boolean isImported;
     private boolean isSalesTaxable;
     private category cat;
-    public Item(String name, double d,boolean imported, category c){
-        this.price=d;
+
+    public Item(String name, double price, String itemType){
+        this.price=price;
         this.name=name;
-        this.isImported=imported;
-        this.cat=c;
+        this.isImported=setImported();
+        this.cat=setCategory(itemType);
         this.isSalesTaxable=this.SaleTaxable();
+    }
+    private boolean setImported(){
+        return this.name.contains("imported");
+    }
+    private category setCategory(String itemType){
+        for(category x:category.values()){
+            if (itemType.contains(x.toString().toLowerCase())){
+                return x;
+            }  
+        }
+        return category.OTHERS;
     }
     public boolean SaleTaxable(){
         switch(this.cat){
-            case BOOK_MEDICAL_FOOD:
+            case BOOK:
+                return false;
+            case CHOCOLATE:
+                return false;
+            case PILLS:
                 return false;
             case OTHERS:
                 return true;
@@ -31,8 +47,8 @@ public class Item {
     public double getPrice(){
         return price;
     }
-    public void setPrice(double price){
-        this.price=price;
+    public boolean getImported(){
+        return this.isImported;
     }
     public double getSalesTax(){
         double totalSaleTax=0;
